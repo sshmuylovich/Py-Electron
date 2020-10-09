@@ -32,9 +32,11 @@ class Application():
                     self.window_html = kwargs[arg]
 
             local_server().create(8081, self.window_html)
-            args = [get_path(), '--app=http://localhost:8081']
+            args = [get_path(), '--app=http://localhost:8081', "#proactive-tab-freeze-and-discard", "#ignore-gpu-blacklist", "#enable-lazy-image-loading"]
 
             Popen(args, shell=False)
 
 if __name__ == "__main__":
-    Application().Window().create(html='<title>My first app</title><p>Hello, world</p>')
+    with open('/Users/administrator/Hayha/static/index.html', 'r') as f:
+        html_string = f.read()
+    Application().Window().create(html=html_string)
