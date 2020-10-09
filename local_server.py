@@ -1,4 +1,4 @@
-import flask, threading
+import flask, threading, sys, multiprocessing, os
 from flask import request, jsonify
 
 class local_server():
@@ -16,7 +16,14 @@ class local_server():
             def home():
                 return window_html
 
+            @self.app.route('/quit', methods=['GET'])
+            def quit():
+                # ------------------------------ #
+                # This function is used to quit the Flask server. However it doesnt work
+                # ------------------------------ #
+                sys.exit()
+
             self.app.run(host='0.0.0.0', port=port)
 
-        self.display_thread = threading.Thread(target=_create, args=(self, port, window_html, ))
+        self.display_thread = multiprocessing.Process(target=_create, args=(self, port, window_html, ))
         self.display_thread.start()
