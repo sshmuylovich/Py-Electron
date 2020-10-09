@@ -1,7 +1,6 @@
 from locate_chrome import get_path
 from subprocess import Popen
 from local_server import local_server
-from examples import my_first_app
 
 class Application():
     def __init__(self):
