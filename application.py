@@ -1,9 +1,10 @@
 from locate_chrome import get_path
-from subprocess import Popen
+from subprocess import Popen, PIPE
 from local_server import local_server
 from default_args import get_args, transform_args
 from requests_futures.sessions import FuturesSession
-import requests
+import requests, os
+from websockets import WebsocketConnection
 
 class Application():
     def __init__(self, *args, **kwargs):
@@ -57,10 +58,18 @@ class Application():
                     self.dark_mode = kwargs[arg]
 
             local_server().create(8081, self.html)
-            args = transform_args(self, [get_path(), '--app=http://localhost:8081'] + get_args())
+            args = transform_args(self, [get_path(),
+                    '--app=http://localhost:8081',
+                    '--remote-debugging-port=9222',
+                    '--no-first-run'
+                    '--user-data-dir=' + os.path.join(os.path.dirname(__file__), 'user_dir/')
+                ] + get_args())
 
-            self.process = Popen(args, shell=False)
+            self.process = Popen(args, shell=False, stdin=PIPE, stdout=PIPE, bufsize=1)
+            #Need to snipe the ws url from the process somehow
+
+            self._conn = WebsocketConnection()
+            # self._conn._ws =
 
 if __name__ == "__main__":
-    html_string = '<p>Hello World</p>'
-    Application(debug=True).Window().create(html=html_string, dark_mode=True)
+    Application(debug=True).Window().create(html="./static/index.html", dark_mode=True)

@@ -1,5 +1,5 @@
 import flask, threading, sys, multiprocessing, os
-from flask import request, jsonify
+from flask import request, jsonify, send_file
 
 class local_server():
 
@@ -14,7 +14,7 @@ class local_server():
 
             @self.app.route('/', methods=['GET'])
             def home():
-                return window_html
+                return send_file(window_html)
 
             @self.app.route('/quit', methods=['GET'])
             def quit():
