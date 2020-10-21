@@ -3,7 +3,7 @@ from subprocess import Popen, PIPE
 from local_server import local_server
 from default_args import get_args, transform_args
 from requests_futures.sessions import FuturesSession
-import requests, os
+import requests, os, time
 from websockets import WebsocketConnection
 
 class Application():
@@ -60,16 +60,34 @@ class Application():
             local_server().create(8081, self.html)
             args = transform_args(self, [get_path(),
                     '--app=http://localhost:8081',
-                    '--remote-debugging-port=9222',
+                    '--remote-debugging-port=8888',
+                    'browserWSEndpoint'
                     '--no-first-run'
                     '--user-data-dir=' + os.path.join(os.path.dirname(__file__), 'user_dir/')
                 ] + get_args())
 
             self.process = Popen(args, shell=False, stdin=PIPE, stdout=PIPE, bufsize=1)
-            #Need to snipe the ws url from the process somehow
 
-            self._conn = WebsocketConnection()
-            # self._conn._ws =
+            while True:
+                try:
+                    # ------------------------------ #
+                    # Attempt to fetch browser data
+                    # ------------------------------ #
+                    _browser_data = requests.get("http://127.0.0.1:8888/json/version").json()
+                    self.v8_version = _browser_data['V8-Version']
+                    self.webkit_version = _browser_data['WebKit-Version']
+                    self.tls_protocol = _browser_data['Protocol-Version']
+                    self._ws = _browser_data['webSocketDebuggerUrl']
+                    print("Grabbed browser data")
+                    print(vars(self))
+                    break
+                except:
+                    print("Error grabbing browser data, retrying")
+                    time.sleep(1)
+
+            self._ws = 'ws://localhost:8888'
+            self._conn = WebsocketConnection('8888')
+            self._conn.connect(self._ws)
 
 if __name__ == "__main__":
     Application(debug=True).Window().create(html="./static/index.html", dark_mode=True)

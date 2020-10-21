@@ -3,7 +3,7 @@ import json, websocket
 
 class WebsocketConnection():
 
-    def __init__():
+    def __init__(self, port):
         try:
             import thread
         except ImportError:
@@ -24,9 +24,11 @@ class WebsocketConnection():
         self.on_error = on_error
         self.on_close = on_close
 
-    def connect():
+    def connect(self, _ws):
+        print("connecting")
         def on_open(ws):
             def run(*args):
+                print("hallo")
                 x = json.dumps({
                     "id": 1,
                     'method': 'Target.setDiscoverTargets',
@@ -40,7 +42,7 @@ class WebsocketConnection():
 
         self.on_open = on_open
         websocket.enableTrace(True)
-        ws = websocket.WebSocketApp(self._ws,
+        ws = websocket.WebSocketApp(_ws,
                                   on_message = self.on_message,
                                   on_error = self.on_error,
                                   on_close = self.on_close)
