@@ -61,7 +61,6 @@ class Application():
             args = transform_args(self, [get_path(),
                     '--app=http://localhost:8081',
                     '--remote-debugging-port=8888',
-                    'browserWSEndpoint'
                     '--no-first-run'
                     '--user-data-dir=' + os.path.join(os.path.dirname(__file__), 'user_dir/')
                 ] + get_args())
