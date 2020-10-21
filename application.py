@@ -90,6 +90,7 @@ class Application():
             # self._ws = 'ws://localhost:8888'
             self._conn = WebsocketConnection('8888')
             self._conn.connect(self._ws)
+            # self._conn.go_to_url("https://cnn.com")
 
 if __name__ == "__main__":
     Application(debug=True).Window().create(html="./static/index.html", dark_mode=True)
