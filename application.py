@@ -85,7 +85,9 @@ class Application():
                     print("Error grabbing browser data, retrying")
                     time.sleep(1)
 
-            self._ws = 'ws://localhost:8888'
+            print("Waiting to connect... (1s delay)")
+            time.sleep(1)
+            # self._ws = 'ws://localhost:8888'
             self._conn = WebsocketConnection('8888')
             self._conn.connect(self._ws)
 

@@ -25,7 +25,7 @@ class WebsocketConnection():
         self.on_close = on_close
 
     def connect(self, _ws):
-        print("connecting")
+        print("Connecting to ws on " + _ws)
         def on_open(ws):
             def run(*args):
                 print("hallo")
@@ -38,7 +38,7 @@ class WebsocketConnection():
                 }, separators=(',', ':'))
                 print(x)
                 ws.send(x)
-            thread.start_new_thread(run, ())
+            run()
 
         self.on_open = on_open
         websocket.enableTrace(True)
