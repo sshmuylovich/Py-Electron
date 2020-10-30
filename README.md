@@ -1,6 +1,15 @@
+
 # Py-Electron
 
-This library is based on the strong need for an easy-to-use GUI creation option in Python.
+## What This Repository Does
+Electron is a JS framework for making easily-distributable cross-platform applications. Go-astilectron, similarly, is a Golang framework based on Electron that allows golang programs to likewise make easily-distributable cross-platform applications. However, there is no solid option in Python (you can explore existing ones more in detail below).
+
+This library attempts to recreate the Electron project in Python.
+
+### How It Works
+The library hosts a local Flask server on 127.0.0.1:8888, then opens a Chrome window with appropriate flags onto that Flask URL. This allows the user to serve HTML, CSS, and JS pages to an app-like Chrome browser.
+
+The big challenge of Py-Electron is executing JS code in the browser. Since the library is Python and Chrome executes JS, it's pretty complicated to get them to line up. Right now I'm investigating Chrome Remote Debugger for this task. I've got some basic work done but there are still a ton of problems—I'm using an async web sockets library and am having issues with deeply chained callbacks.  
 
 ## Existing Frameworks
 ### PyQT
