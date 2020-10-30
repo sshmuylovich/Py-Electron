@@ -9,7 +9,29 @@ This library attempts to recreate the Electron project in Python.
 ### How It Works
 The library hosts a local Flask server on 127.0.0.1:8888, then opens a Chrome window with appropriate flags onto that Flask URL. This allows the user to serve HTML, CSS, and JS pages to an app-like Chrome browser.
 
-The big challenge of Py-Electron is executing JS code in the browser. Since the library is Python and Chrome executes JS, it's pretty complicated to get them to line up. Right now I'm investigating Chrome Remote Debugger for this task. I've got some basic work done but there are still a ton of problems—I'm using an async web sockets library and am having issues with deeply chained callbacks.  
+The big challenge of Py-Electron is executing JS code in the browser. Since the library is Python and Chrome executes JS, it's pretty complicated to get them to line up. Right now I'm investigating Chrome Remote Debugger for this task. I've got some basic work done but there are still a ton of problems—I'm using an async websockets library and am having issues with deeply chained callbacks.  
+
+### Help!
+Most of the help I need involves async websockets in Python—if you have experience in that, awesome! If not, that's also totally fine. I'm looking for a bunch of Chrome command-line args I can pass in to make the application run smoother. https://peter.sh/experiments/chromium-command-line-switches/ is a good list of command-line args. Once you've found some you like, just add it to the array in default_args.py. 
+
+```
+arg_array = [
+    "--proactive-tab-freeze-and-discard",
+    "--ignore-gpu-blocklist",
+    "--enable-lazy-image-loading",
+    "--native-file-system-api",
+    "--smooth-scrolling",
+    "--disable-accelerated-2d-canvas",
+    "--enable-quic",
+    '--disable-dev-shm-usage',
+    '--disable-extensions',
+    '--disable-translate',
+    '--metrics-recording-only',
+    '--no-first-run',
+    '--safebrowsing-disable-auto-update',
+    '--enable-automation',
+]
+```
 
 ## Existing Frameworks
 ### PyQT
