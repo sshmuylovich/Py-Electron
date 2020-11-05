@@ -14,6 +14,16 @@ def get_args():
         '--no-first-run',
         '--safebrowsing-disable-auto-update',
         '--enable-automation',
+        '--autofill-api-key',
+        '--autofill-metadata-upload-encoding',
+        '--blink-settings',
+        '--block-new-web-contents',
+        '--browser-test',
+        '--cast-initial-screen-height',
+        '--cc-layer-tree-test-long-timeout',
+        '--check-damage-early',
+        '--component-updater',
+        '--custom-launcher-page'
     ]
     return arg_array
 
