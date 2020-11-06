@@ -9,7 +9,6 @@ from websockets import WebsocketConnection
 class Application():
     def __init__(self, *args, **kwargs):
         self.debug = False
-        # requests.get("http://localhost:8081/quit")
         for arg in kwargs:
             if arg == "debug":
                 self.debug = kwargs[arg]
@@ -86,10 +85,8 @@ class Application():
 
             print("Waiting to connect... (1s delay)")
             time.sleep(1)
-            # self._ws = 'ws://localhost:8888'
             self._conn = WebsocketConnection('8888')
             self._conn.connect(self._ws)
-            # self._conn.go_to_url("https://cnn.com")
 
 if __name__ == "__main__":
     Application(debug=True).Window().create(html="./static/index.html", dark_mode=True)
