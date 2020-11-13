@@ -23,7 +23,10 @@ def get_args():
         '--cc-layer-tree-test-long-timeout',
         '--check-damage-early',
         '--component-updater',
-        '--custom-launcher-page'
+        '--custom-launcher-page',
+        '--disable-auto-reload',
+        '--disable-sync',
+        '--disable-v8-idle-task'
     ]
     return arg_array
 
